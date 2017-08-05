@@ -1,9 +1,10 @@
 body {
-    background: black;
+    background: #0e0e0e;
+    margin: 0px;
 }
 
 img {
     display: block;
-    height: 96vh;
+    height: 100vh;
     margin: auto;
 }
