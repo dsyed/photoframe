@@ -3,21 +3,15 @@ const $=document.querySelector.bind(document);
 // ms between image changes
 const INTERVAL = 1500;
 
+// Base remote media directory
+const BASE = 'remote';
 
-var image = $('img');
-var video = $('video');
+// References to image and video elements
+const image = $('img');
+const video = $('video');
 
-// let images = [
-//     'images/IMG_0670.JPG',
-//     'images/puppy.gif',
-//     'images/tiger_cub.jpg'
-// ];
 
-// let videos = [
-//     'videos/spider-man.mov',
-//     'videos/star-wars.mov'
-// ];
-
+// Example response from backend
 let media = {
     'a': [
         'spider-man.mov',
@@ -31,11 +25,11 @@ let media = {
 };
 
 var i = 0;
+var folder = 'b';
 
 function switchMedia() {
-    let folder = 'b';
     let slideshow = media[folder];
-    let url = 'remote' + '/' + folder + '/' + slideshow[i];
+    let url = [BASE, folder, slideshow[i]].join('/');
     i = i >= slideshow.length - 1 ? 0 : i + 1;
 
     fetch(url)
@@ -58,15 +52,4 @@ function switchMedia() {
         });
 }
 
-// function switchImage() {
-//     img.src = images[i++];
-//     i = i >= images.length ? 0 : i;
-// }
-
-// function switchVideo() {
-//     i = i >= videos.length - 1 ? 0 : i + 1;
-//     video.src = videos[i];
-// }
-
-// setInterval(switchImage, interval);
 switchMedia();
