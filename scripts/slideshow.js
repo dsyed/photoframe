@@ -1,9 +1,10 @@
-// ms between image changes
-var interval = 1500;
-
 const $=document.querySelector.bind(document);
 
-var img = $('img');
+// ms between image changes
+const INTERVAL = 1500;
+
+
+var image = $('img');
 var video = $('video');
 
 // let images = [
@@ -12,15 +13,15 @@ var video = $('video');
 //     'images/tiger_cub.jpg'
 // ];
 
-let videos = [
-    'videos/spider-man.mov',
-    'videos/star-wars.mov'
-];
+// let videos = [
+//     'videos/spider-man.mov',
+//     'videos/star-wars.mov'
+// ];
 
 let media = {
     'a': [
         'spider-man.mov',
-        'tiger-cub.jpg'
+        'tiger_cub.jpg'
     ],
     'b': [
         'puppy.gif',
@@ -32,12 +33,29 @@ let media = {
 var i = 0;
 
 function switchMedia() {
-    let url = videos[i];
-    i = i >= videos.length - 1 ? 0 : i + 1;
+    let folder = 'b';
+    let slideshow = media[folder];
+    let url = 'remote' + '/' + folder + '/' + slideshow[i];
+    i = i >= slideshow.length - 1 ? 0 : i + 1;
 
     fetch(url)
         .then(resp => resp.headers.get('Content-Type'))
-        .then(type => video.src = url);
+        .then(type => {
+            if (type.startsWith('video')) {
+                image.style.display = 'none';
+                video.style.display = 'inline';
+                video.src = url;
+            }
+            else if (type.startsWith('image')) {
+                video.style.display = 'none';
+                image.style.display = 'block';
+                image.src = url;
+                setTimeout(switchMedia, INTERVAL);
+            }
+            else {
+                switchMedia();
+            }
+        });
 }
 
 // function switchImage() {
