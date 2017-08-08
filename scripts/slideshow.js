@@ -1,6 +1,6 @@
 const $=document.querySelector.bind(document);
 
-// ms between image changes
+// Time between image changes in ms
 const INTERVAL = 1500;
 
 // Base remote media directory
@@ -11,45 +11,66 @@ const image = $('img');
 const video = $('video');
 
 
-// Example response from backend
-let media = {
-    'a': [
-        'spider-man.mov',
-        'tiger_cub.jpg'
-    ],
-    'b': [
-        'puppy.gif',
-        'spider-man.mov',
-        'star-wars.mov'
-    ]
-};
+class Slideshow {
+	constructor(folder) {
+		this.folder = folder;
+		this.frame = 0;
+		this.slides = this.fetchSlides();
+	}
 
-var i = 0;
-var folder = 'b';
+	fetchSlides() {
+		// Example response from backend
+		return [
+			'puppy.gif',
+			'spider-man.mov',
+			'star-wars.mov'
+		];
+	}
 
-function switchMedia() {
-    let slideshow = media[folder];
-    let url = [BASE, folder, slideshow[i]].join('/');
-    i = i >= slideshow.length - 1 ? 0 : i + 1;
+	next() {
+		let url = [BASE, this.folder, this.slides[this.frame]].join('/');
+		this.frame = this.frame >= this.slides.length - 1 ? 0 : this.frame + 1;
 
-    fetch(url)
-        .then(resp => resp.headers.get('Content-Type'))
-        .then(type => {
-            if (type.startsWith('video')) {
-                image.style.display = 'none';
-                video.style.display = 'inline';
-                video.src = url;
-            }
-            else if (type.startsWith('image')) {
-                video.style.display = 'none';
-                image.style.display = 'block';
-                image.src = url;
-                setTimeout(switchMedia, INTERVAL);
-            }
-            else {
-                switchMedia();
-            }
-        });
+		fetch(url)
+			.then(resp => resp.headers.get('Content-Type'))
+			.then(type => {
+				if (type.startsWith('video')) {
+					image.style.display = 'none';
+					video.style.display = 'inline';
+					video.src = url;
+				}
+				else if (type.startsWith('image')) {
+					video.style.display = 'none';
+					image.style.display = 'block';
+					image.src = url;
+					setTimeout(this.next.bind(this), INTERVAL);
+				}
+				else {
+					this.next();
+				}
+			});
+	}
 }
 
-switchMedia();
+let slideshow = new Slideshow('b');
+
+// Closure required to retain context
+// (It would otherwise be replaced by the `video` object)
+video.onended = () => {
+	slideshow.next();
+};
+
+slideshow.next();
+
+// Example response from backend
+// let media = {
+// 	'a': [
+// 		'spider-man.mov',
+// 		'tiger_cub.jpg'
+// 	],
+// 	'b': [
+// 		'puppy.gif',
+// 		'spider-man.mov',
+// 		'star-wars.mov'
+// 	]
+// };

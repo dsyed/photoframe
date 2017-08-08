@@ -6,12 +6,13 @@ html, body {
 }
 
 img {
-    display: block;
+    display: none;
     height: 100vh;
     margin: auto;
 }
 
 video {
+    display: none;
     min-width: 100%;
     width: 100%;
     height: auto;
