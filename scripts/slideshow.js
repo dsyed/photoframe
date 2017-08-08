@@ -15,19 +15,31 @@ class Slideshow {
 	constructor(folder) {
 		this.folder = folder;
 		this.frame = 0;
-		this.slides = this.fetchSlides();
 	}
 
 	fetchSlides() {
 		// Example response from backend
-		return [
-			'puppy.gif',
-			'spider-man.mov',
-			'star-wars.mov'
-		];
+		if (this.folder === 'a') {
+			return [
+				'spider-man.mov',
+				'tiger_cub.jpg'
+			];
+		};
+
+		if (this.folder === 'b') {
+			return [
+				'puppy.gif',
+				'spider-man.mov',
+				'star-wars.mov'
+			];
+		}
 	}
 
 	next() {
+		if (this.frame === 0) {
+			this.slides = this.fetchSlides();
+		}
+
 		let url = [BASE, this.folder, this.slides[this.frame]].join('/');
 		this.frame = this.frame >= this.slides.length - 1 ? 0 : this.frame + 1;
 
@@ -52,25 +64,37 @@ class Slideshow {
 	}
 }
 
-let slideshow = new Slideshow('b');
 
-// Closure required to retain context
-// (It would otherwise be replaced by the `video` object)
-video.onended = () => {
-	slideshow.next();
+class Switcher {
+	constructor() {
+		this.frame = 0;
+	}
+
+	fetchFolders() {
+		return ['a', 'b'];
+	}
+
+	next() {
+		if (this.frame === 0) {
+			this.folders = this.fetchFolders();
+		}
+
+		this.slideshow = new Slideshow(this.folders[this.frame]);
+		this.frame = this.frame >= this.folders.length - 1 ? 0 : this.frame + 1;
+
+		// Closure required to retain context
+		// (It would otherwise be replaced by the `video` object)
+		video.onended = () => {
+			this.slideshow.next();
+		};
+
+		this.slideshow.next();
+	}
+}
+
+let switcher = new Switcher();
+switcher.next();
+
+window.onclick = () => {
+	switcher.next();
 };
-
-slideshow.next();
-
-// Example response from backend
-// let media = {
-// 	'a': [
-// 		'spider-man.mov',
-// 		'tiger_cub.jpg'
-// 	],
-// 	'b': [
-// 		'puppy.gif',
-// 		'spider-man.mov',
-// 		'star-wars.mov'
-// 	]
-// };
