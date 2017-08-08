@@ -71,6 +71,7 @@ class Switcher {
 	}
 
 	fetchFolders() {
+		// Example response from backend
 		return ['a', 'b'];
 	}
 
