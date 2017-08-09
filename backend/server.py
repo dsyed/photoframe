@@ -2,8 +2,10 @@ import os
 
 from flask import Flask
 from flask.json import jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 
 REMOTE_DIR = '../frontend/remote'
 

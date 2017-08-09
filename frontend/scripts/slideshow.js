@@ -1,5 +1,7 @@
 const $=document.querySelector.bind(document);
 
+const BACKEND_URL = 'http://localhost:5000/';
+
 // Time between image changes in ms
 const INTERVAL = 1500;
 
@@ -71,13 +73,13 @@ class Switcher {
 	}
 
 	fetchFolders() {
-		// Example response from backend
-		return ['a', 'b'];
+		return fetch(BACKEND_URL + 'folders')
+			.then(resp => resp.json());
 	}
 
 	next() {
 		if (this.frame === 0) {
-			this.folders = this.fetchFolders();
+			this.run();
 		}
 
 		this.slideshow = new Slideshow(this.folders[this.frame]);
@@ -91,10 +93,18 @@ class Switcher {
 
 		this.slideshow.next();
 	}
+
+	run() {
+		this.fetchFolders()
+			.then(resp => {
+				this.folders = resp.folders;
+				this.next();
+			});
+	}
 }
 
 let switcher = new Switcher();
-switcher.next();
+switcher.run();
 
 window.onclick = () => {
 	switcher.next();
