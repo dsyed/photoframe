@@ -18,14 +18,14 @@ def home():
 @app.route('/folders')
 def folders():
     return jsonify({
-        'folders': os.listdir(REMOTE_DIR)
+        'data': os.listdir(REMOTE_DIR)
     })
 
 
 @app.route('/files/<folder>')
 def files(folder):
     return jsonify({
-        'files': os.listdir(os.path.join(REMOTE_DIR, folder))
+        'data': os.listdir(os.path.join(REMOTE_DIR, folder))
     })
 
 

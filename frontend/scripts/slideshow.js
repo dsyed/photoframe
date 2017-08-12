@@ -1,6 +1,6 @@
 const $=document.querySelector.bind(document);
 
-const BACKEND_URL = 'http://localhost:5000/';
+const BACKEND_URL = 'http://localhost:5000';
 
 // Time between image changes in ms
 const INTERVAL = 1500;
@@ -20,28 +20,11 @@ class Slideshow {
 	}
 
 	fetchSlides() {
-		// Example response from backend
-		if (this.folder === 'a') {
-			return [
-				'spider-man.mov',
-				'tiger_cub.jpg'
-			];
-		};
-
-		if (this.folder === 'b') {
-			return [
-				'puppy.gif',
-				'spider-man.mov',
-				'star-wars.mov'
-			];
-		}
+		return fetch(`${BACKEND_URL}/files/${this.folder}`)
+			.then(resp => resp.json());
 	}
 
 	next() {
-		if (this.frame === 0) {
-			this.slides = this.fetchSlides();
-		}
-
 		let url = [BASE, this.folder, this.slides[this.frame]].join('/');
 		this.frame = this.frame >= this.slides.length - 1 ? 0 : this.frame + 1;
 
@@ -64,6 +47,18 @@ class Slideshow {
 				}
 			});
 	}
+
+	run() {
+		if (this.frame === 0) {
+			this.fetchSlides()
+				.then(resp => {
+					this.slides = resp.data;
+					this.next();
+				});
+		} else {
+			this.next();
+		}
+	}
 }
 
 
@@ -73,7 +68,7 @@ class Switcher {
 	}
 
 	fetchFolders() {
-		return fetch(BACKEND_URL + 'folders')
+		return fetch(`${BACKEND_URL}/folders`)
 			.then(resp => resp.json());
 	}
 
@@ -84,17 +79,17 @@ class Switcher {
 		// Closure required to retain context
 		// (It would otherwise be replaced by the `video` object)
 		video.onended = () => {
-			this.slideshow.next();
+			this.slideshow.run();
 		};
 
-		this.slideshow.next();
+		this.slideshow.run();
 	}
 
 	run() {
 		if (this.frame === 0) {
 			this.fetchFolders()
 				.then(resp => {
-					this.folders = resp.folders;
+					this.folders = resp.data;
 					this.next();
 				});
 		} else {
