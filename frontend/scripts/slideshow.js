@@ -78,10 +78,6 @@ class Switcher {
 	}
 
 	next() {
-		if (this.frame === 0) {
-			this.run();
-		}
-
 		this.slideshow = new Slideshow(this.folders[this.frame]);
 		this.frame = this.frame >= this.folders.length - 1 ? 0 : this.frame + 1;
 
@@ -95,11 +91,15 @@ class Switcher {
 	}
 
 	run() {
-		this.fetchFolders()
-			.then(resp => {
-				this.folders = resp.folders;
-				this.next();
-			});
+		if (this.frame === 0) {
+			this.fetchFolders()
+				.then(resp => {
+					this.folders = resp.folders;
+					this.next();
+				});
+		} else {
+			this.next();
+		}
 	}
 }
 
