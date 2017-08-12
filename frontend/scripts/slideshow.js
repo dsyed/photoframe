@@ -101,6 +101,12 @@ class Switcher {
 let switcher = new Switcher();
 switcher.run();
 
-window.onclick = () => {
-	switcher.next();
+onclick = e => {
+	if (e.x > 0.75 * innerWidth && e.y < 0.25 * innerHeight) {
+		console.log('top-right corner');
+	} else if (e.x < 0.25 * innerWidth && e.y < 0.25 * innerHeight) {
+		console.log('top-left corner');
+	} else {
+		switcher.next();
+	}
 };
