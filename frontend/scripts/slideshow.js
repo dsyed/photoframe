@@ -44,10 +44,10 @@ class Slideshow {
 					video.style.display = 'none';
 					image.style.display = 'block';
 					image.src = url;
-					setTimeout(this.next.bind(this), INTERVAL);
+					setTimeout(this.run.bind(this), INTERVAL);
 				}
 				else {
-					this.next();
+					this.run();
 				}
 			});
 	}
