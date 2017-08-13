@@ -6,11 +6,15 @@ const BACKEND_URL = 'http://localhost:5000';
 const INTERVAL = 1500;
 
 // Base remote media directory
-const BASE = 'remote';
+const BASE = 'Dropbox';
 
 // References to image and video elements
 const image = $('img');
 const video = $('video');
+
+// 0 = on
+// 1 = off
+var backlight = 0;
 
 
 class Slideshow {
@@ -98,14 +102,26 @@ class Switcher {
 	}
 }
 
+function toggleDisplay() {
+	backlight ^= 1;
+	fetch(`${BACKEND_URL}/backlight/${backlight}`);
+}
+
+function shutdown() {
+	fetch(`${BACKEND_URL}/shutdown`);
+}
+
+
 let switcher = new Switcher();
 switcher.run();
 
 onclick = e => {
 	if (e.x > 0.75 * innerWidth && e.y < 0.25 * innerHeight) {
-		console.log('top-right corner');
+		// top-right corner
+		shutdown();
 	} else if (e.x < 0.25 * innerWidth && e.y < 0.25 * innerHeight) {
-		console.log('top-left corner');
+		// top-left corner
+		toggleDisplay();
 	} else {
 		switcher.next();
 	}

@@ -1,13 +1,14 @@
 import os
+from subprocess import call
 
 from flask import Flask
 from flask.json import jsonify
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
-REMOTE_DIR = '../frontend/remote'
+REMOTE_DIR = '../frontend/Dropbox'
 
 
 @app.route('/')
@@ -18,7 +19,7 @@ def home():
 @app.route('/folders')
 def folders():
     return jsonify({
-        'data': os.listdir(REMOTE_DIR)
+        'data': [dir for dir in next(os.walk(REMOTE_DIR))[1] if not dir.startswith('.')]
     })
 
 
@@ -33,9 +34,11 @@ def files(folder):
 # 1 for off
 @app.route('/backlight/<int:power>')
 def set_backlight(power):
-    pass
+    call(['say', 'backlight'])
+    return jsonify(success=True)
 
 
 @app.route('/shutdown')
 def shutdown():
-    pass
+    call(['say', 'shutdown'])    
+    return jsonify(success=True)
