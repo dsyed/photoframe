@@ -122,6 +122,9 @@ onclick = e => {
 	} else if (e.x < 0.25 * innerWidth && e.y < 0.25 * innerHeight) {
 		// top-left corner
 		toggleDisplay();
+	} else if (e.x < 0.25 * innerWidth && e.y > 0.75 * innerHeight) {
+		// bottom-left corner
+		window.location.reload();
 	} else {
 		switcher.next();
 	}
