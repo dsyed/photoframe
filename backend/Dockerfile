@@ -8,6 +8,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY server.py .
+COPY remote .
 
 ENV FLASK_APP server.py
 CMD flask run --host 0.0.0.0

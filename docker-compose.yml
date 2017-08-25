@@ -1,0 +1,24 @@
+version: '3'
+services:
+  backend:
+    build: backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - dropbox-volume:/usr/src/app/remote
+  frontend:
+    build: frontend
+    ports:
+      - "80:80"
+    volumes:
+      - dropbox-volume:/usr/share/nginx/html/Dropbox
+  dropbox:
+    image: "janeczku/dropbox:3.18.1"
+    environment:
+      - DBOX_UID=100
+      - DBOX_GID=101
+    volumes:
+      - dropbox-volume:/dbox/Dropbox
+
+volumes:
+  dropbox-volume:
