@@ -15,6 +15,7 @@ services:
   dropbox:
     image: "janeczku/dropbox:3.18.1"
     environment:
+      # UID and GID of `nginx`
       - DBOX_UID=100
       - DBOX_GID=101
     volumes:
