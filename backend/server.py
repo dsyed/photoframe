@@ -1,4 +1,6 @@
 import os
+import signal
+import sys
 from subprocess import call
 
 from flask import Flask
@@ -9,6 +11,9 @@ app = Flask(__name__)
 CORS(app)
 
 REMOTE_DIR = '../frontend/Dropbox'
+
+# Allow graceful shutdown when using `docker stop`
+signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
 
 
 @app.route('/')
