@@ -1,0 +1,2 @@
+#!/bin/bash
+omxplayer shutdown.mp4
