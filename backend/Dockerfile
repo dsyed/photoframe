@@ -1,4 +1,4 @@
-FROM python:2.7
+FROM arm32v7/python:2.7
 
 RUN mkdir -p /usr/src/app/remote
 WORKDIR /usr/src/app
