@@ -11,7 +11,5 @@ if cd photoframe; then git pull; cd ..; else git clone https://github.com/dsyed/
 sudo cp photoframe/K99_shutdown /etc/rc6.d
 sudo chmod +x /etc/rc6.d/K99_shutdown
 
-sudo cp photoframe/autostart /etc/xdg/lxsession/LXDE/autostart
-sudo chmod +x /etc/xdg/lxsession/LXDE/autostart
-
+sudo cp photoframe/autostart /home/pi/.config/lxsession/LXDE-pi/autostart
 sudo cp photoframe/lightdm.conf /etc/lightdm/lightdm.conf
