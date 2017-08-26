@@ -1,10 +1,13 @@
 #!/bin/bash
 curl -sSL https://get.docker.com | sh
-sudo curl -L https://github.com/docker/compose/releases/download/1.15.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
 
 sudo apt-get update
-sudo apt-get install chromium-browser vlc
+sudo apt-get install -y apt-transport-https chromium-browser vlc
+echo "deb https://packagecloud.io/Hypriot/Schatzkiste/debian/ jessie main" | sudo tee /etc/apt/sources.list.d/hypriot.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 37BBEE3F7AD95B3F
+
+sudo apt-get update
+sudo apt-get install docker-compose
 
 if cd photoframe; then git pull && cd .. && pwd; else git clone https://github.com/dsyed/photoframe.git; fi
 
