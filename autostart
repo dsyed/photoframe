@@ -8,3 +8,4 @@
 @docker-compose -f photoframe/docker-compose.yml up
 @chromium-browser --noerrdialogs --kiosk localhost
 @point-rpi
+@unclutter -idle 0
