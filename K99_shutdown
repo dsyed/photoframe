@@ -1,2 +1,2 @@
 #!/bin/bash
-vlc ~/photoframe/tts/shutdown.aiff
+cvlc --play-and-exit  ~/photoframe/tts/shutdown.aiff
