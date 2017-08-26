@@ -1,8 +1,9 @@
 #!/bin/bash
 curl -sSL https://get.docker.com | sh
-sudo apt-get install chromium
+sudo apt-get update
+sudo apt-get install chromium-browser
 
-git pull http://www.github.com/dsyed/photoframe
+git clone https://github.com/dsyed/photoframe.git
 
 sudo cp photoframe/K99_shutdown /etc/rc6.d
 sudo chmod +x /etc/rc6.d/K99_shutdown
