@@ -4,7 +4,7 @@ sudo curl -L https://github.com/docker/compose/releases/download/1.15.0/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 
 sudo apt-get update
-sudo apt-get install chromium-browser
+sudo apt-get install chromium-browser vlc
 
 if cd photoframe; then git pull; cd ..; else git clone https://github.com/dsyed/photoframe.git; fi
 

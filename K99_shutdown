@@ -1,2 +1,2 @@
 #!/bin/bash
-omxplayer -o alsa ~/photoframe/tts/shutdown.mp3
+vlc ~/photoframe/tts/shutdown.aiff

@@ -4,6 +4,6 @@
 @xset s off
 @xset -dpms
 @xset s noblank
-@omxplayer -o alsa ~/photoframe/tts/startup.mp3
+@vlc ~/photoframe/tts/startup.aiff
 @docker-compose -f ~/photoframe/docker-compose.yml up
 @chromium-browser --noerrdialogs --kiosk localhost
