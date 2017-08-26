@@ -39,11 +39,11 @@ def files(folder):
 # 1 for off
 @app.route('/backlight/<int:power>')
 def set_backlight(power):
-    call(['say', 'backlight'])
+    call(['echo', power, '>', '/sys/class/backlight/rpi_backlight/bl_power'])
     return jsonify(success=True)
 
 
 @app.route('/shutdown')
 def shutdown():
-    call(['say', 'shutdown'])    
+    call(['sudo', 'shutdown', '-h', 'now'])
     return jsonify(success=True)

@@ -1,2 +1,2 @@
 #!/bin/bash
-omxplayer shutdown.mp4
+omxplayer ~/photoframe/tts/shutdown.mp4
