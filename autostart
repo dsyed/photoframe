@@ -5,7 +5,7 @@
 @xset -dpms
 @xset s noblank
 @cvlc --play-and-exit photoframe/tts/startup.aiff
-@docker-compose -f photoframe/docker-compose.yml up
+@sudo docker-compose -f photoframe/docker-compose.yml up
 @chromium-browser --noerrdialogs --kiosk localhost
 @point-rpi
 @unclutter -idle 0
