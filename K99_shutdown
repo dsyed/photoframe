@@ -1,2 +1,2 @@
 #!/bin/bash
-omxplayer ~/photoframe/tts/shutdown.mp4
+omxplayer -o alsa ~/photoframe/tts/shutdown.mp3
