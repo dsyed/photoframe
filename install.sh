@@ -6,7 +6,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo apt-get update
 sudo apt-get install chromium-browser
 
-if cd photoframe; then git pull; else git clone https://github.com/dsyed/photoframe.git; fi
+if cd photoframe; then git pull; cd ..; else git clone https://github.com/dsyed/photoframe.git; fi
 
 sudo cp photoframe/K99_shutdown /etc/rc6.d
 sudo chmod +x /etc/rc6.d/K99_shutdown
