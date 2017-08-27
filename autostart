@@ -6,6 +6,6 @@
 @xset s noblank
 @cvlc --play-and-exit photoframe/tts/startup.aiff
 @sudo docker-compose -f photoframe/docker-compose.yml up
-@chromium-browser --noerrdialogs --kiosk localhost
+@chromium-browser --noerrdialogs --kiosk --incognito --disable-session-crashed-bubble --disable-infobars localhost
 @point-rpi
 @unclutter -idle 0
