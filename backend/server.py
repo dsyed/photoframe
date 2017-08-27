@@ -39,10 +39,11 @@ def files(folder):
 # 1 for off
 @app.route('/backlight/<int:power>')
 def set_backlight(power):
-    call(['echo', power, '>', '/sys/class/backlight/rpi_backlight/bl_power'])
+    call(['echo', str(power), '>', '/sys/class/backlight/rpi_backlight/bl_power'])
     return jsonify(success=True)
 
 
+# Won't work through docker
 @app.route('/shutdown')
 def shutdown():
     call(['sudo', 'shutdown', '-h', 'now'])
