@@ -2,12 +2,16 @@
 curl -sSL https://get.docker.com | sh
 
 sudo apt-get update
-sudo apt-get install -y apt-transport-https chromium-browser unclutter vlc
+sudo apt-get install -y apt-transport-https chromium-browser nodejs npm node-semver unclutter vlc
 
 echo "deb https://packagecloud.io/Hypriot/Schatzkiste/debian/ jessie main" | sudo tee /etc/apt/sources.list.d/hypriot.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 37BBEE3F7AD95B3F
 sudo apt-get update
 sudo apt-get install docker-compose
+
+sudo npm install http-server -g
+sudo pip install --upgrade pip
+sudo pip install -r photoframe/backend/requirements.txt
 
 if cd photoframe; then git pull && cd .. && pwd; else git clone https://github.com/dsyed/photoframe.git; fi
 if cd Dropbox-Uploader; then git pull && cd .. && pwd; else git clone https://github.com/andreafabrizi/Dropbox-Uploader.git; fi

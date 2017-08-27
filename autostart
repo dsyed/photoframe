@@ -8,6 +8,7 @@
 # @sudo docker-compose -f photoframe/docker-compose.yml up
 @export FLASK_APP=photoframe/backend/server.py
 @sudo flask run
+@sudo FLASK_APP=photoframe/backend/server.py flask run
 @sudo http-server -p 80
 @chromium-browser --noerrdialogs --kiosk --incognito --disable-session-crashed-bubble --disable-infobars localhost
 # @point-rpi
