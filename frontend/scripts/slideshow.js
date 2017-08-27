@@ -16,6 +16,8 @@ const video = $('video');
 // 1 = off
 var backlight = 0;
 
+var timeout;
+
 
 class Slideshow {
 	constructor(folder) {
@@ -41,10 +43,11 @@ class Slideshow {
 					video.src = url;
 				}
 				else if (type.startsWith('image')) {
+					video.pause();
 					video.style.display = 'none';
 					image.style.display = 'block';
 					image.src = url;
-					setTimeout(this.run.bind(this), INTERVAL);
+					timeout = setTimeout(this.run.bind(this), INTERVAL);
 				}
 				else {
 					this.run();
@@ -126,6 +129,7 @@ onclick = e => {
 		// bottom-left corner
 		window.location.reload();
 	} else {
+		clearTimeout(timeout);
 		switcher.next();
 	}
 };
