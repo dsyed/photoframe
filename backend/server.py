@@ -10,8 +10,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-REMOTE_DIR = 'remote'
-# REMOTE_DIR = '../Dropbox'
+REMOTE_DIR = '../frontend/Dropbox'
 
 # Allow graceful shutdown when using `docker stop`
 signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))

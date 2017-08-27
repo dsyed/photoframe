@@ -5,7 +5,10 @@
 @xset -dpms
 @xset s noblank
 @cvlc --play-and-exit photoframe/tts/startup.aiff
-@sudo docker-compose -f photoframe/docker-compose.yml up
+# @sudo docker-compose -f photoframe/docker-compose.yml up
+@export FLASK_APP=photoframe/backend/server.py
+@sudo flask run
+@sudo http-server -p 80
 @chromium-browser --noerrdialogs --kiosk --incognito --disable-session-crashed-bubble --disable-infobars localhost
-@point-rpi
+# @point-rpi
 @unclutter -idle 0
