@@ -5,6 +5,10 @@ html, body {
     margin: 0px;
 }
 
+body {
+    overflow: hidden;
+}
+
 img {
     display: none;
     height: 100vh;
