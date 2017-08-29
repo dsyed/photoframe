@@ -3,7 +3,7 @@ const $=document.querySelector.bind(document);
 const BACKEND_URL = 'http://localhost:5000';
 
 // Time between image changes in ms
-const INTERVAL = 1500;
+const INTERVAL = 4000;
 
 // Base remote media directory
 const BASE = 'Dropbox';
